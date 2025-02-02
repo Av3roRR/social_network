@@ -12,4 +12,5 @@ class Post(Base):
     media_url = mapped_column(nullable=True)
     author_id = mapped_column(ForeignKey("users.id"))
     created_at = mapped_column(server_default=func.now())
+    
 
