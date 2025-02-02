@@ -7,3 +7,5 @@ class Like(Base):
     id = mapped_column(primary_key=True)
     user_id = mapped_column(ForeignKey("users.id"))
     post_id = mapped_column(ForeignKey("posts.id"))
+    #is_comment_like = mapped_column(default=False)
+    
