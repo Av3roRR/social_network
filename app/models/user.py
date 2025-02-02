@@ -1,7 +1,8 @@
 from sqlalchemy import String, func
 from sqlalchemy.orm import mapped_column
 
-from social_network.app.models.base import Base
+from app.models.base import Base
+
 class User(Base):
     __tablename__ = "users"
     id = mapped_column(primary_key=True)
