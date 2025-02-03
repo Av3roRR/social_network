@@ -1,4 +1,4 @@
-from social_network.app.models.base import Base
+from app.models.base import Base
 from sqlalchemy.orm import mapped_column
 from sqlalchemy import Text, ForeignKey, func
 

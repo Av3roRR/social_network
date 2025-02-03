@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column
 from sqlalchemy import func
-from social_network.app.models.base import Base
+from app.models.base import Base
 
 
 class Follow(Base):

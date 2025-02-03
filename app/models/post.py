@@ -1,7 +1,7 @@
 from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import mapped_column
 from sqlalchemy import Text, func
-from models.base import Base
+from app.models.base import Base
 
 
 

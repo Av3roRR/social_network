@@ -1,6 +1,6 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column
-from social_network.app.models.base import Base
+from app.models.base import Base
 
 class Like(Base):
     __tablename__ = "likes"
