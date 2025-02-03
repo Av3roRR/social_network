@@ -13,4 +13,6 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     HASH_ALGO: str
     SettingsConfigDict(env_file=".env")
+
+
 settings = Settings()

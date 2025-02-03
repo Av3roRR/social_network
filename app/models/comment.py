@@ -1,13 +1,15 @@
-from app.models.base import Base
-from sqlalchemy.orm import mapped_column
+from app.database import Base
+from sqlalchemy.orm import mapped_column, Mapped
 from sqlalchemy import Text, ForeignKey, func
 
+from datetime import datetime
 
 class Comment(Base):
     __tablename__ = "comments"
-    id = mapped_column(primary_key=True)
-    text = mapped_column(Text)
-    author_id = mapped_column(ForeignKey("users.id"))
-    post_id = mapped_column(ForeignKey("posts.id"))
-    created_at = mapped_column(server_default=func.now())
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    text: Mapped[str] = mapped_column(Text)
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    post_id: Mapped[int] = mapped_column(ForeignKey("posts.id"))
+    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
 
