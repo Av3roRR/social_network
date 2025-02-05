@@ -13,9 +13,6 @@ from app.models.follow import Follow
 from app.models.comment import Comment
 
 from app.config import settings
-import logging
-logging.basicConfig()
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -19,7 +19,9 @@ async def registration(user_data: RegistrationModel):
     if user:
         raise UserAlreadyExist
     
-    new_user = await UsersDAO.add(username=user_data.username, email=user_data.email, password=get_password_hash(user_data.password))
+    new_user = await UsersDAO.add(username=user_data.username,
+                                  email=user_data.email,
+                                  hashed_password=get_password_hash(user_data.password))
     if new_user:
         return "Пользователь создан"
     else:
