@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Response
 from pydantic import EmailStr
 
-from app.users.schemas import RegistrationModel, UserResponse
+from app.users.schemas import RegistrationModel, UserResponse, UserCreateResponse
 from app.users.dao import UsersDAO
 from app.exceptions import UserAlreadyExist
 from app.users.auth import get_password_hash, create_access_token, auth_user
@@ -13,7 +13,7 @@ router = APIRouter(
     tags=["Пользователи"]
 )
 
-@router.post('/registration',response_model=UserResponse)
+@router.post('/registration',response_model=UserCreateResponse)
 async def registration(user_data: RegistrationModel):
     user = await UsersDAO.find_one_or_none(email=user_data.email)
     if user:
@@ -23,7 +23,7 @@ async def registration(user_data: RegistrationModel):
                                   email=user_data.email,
                                   hashed_password=get_password_hash(user_data.password))
     if new_user:
-        return "Пользователь создан"
+        return {"msg":"Пользователь создан", "user":new_user}
     else:
         return "Не создан"
     
