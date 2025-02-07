@@ -1,7 +1,8 @@
 from fastapi import Depends, Request 
 from jose import jwt, JWTError 
 from datetime import datetime, timezone
-
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.database import async_session_maker
 from app.exceptions import *
 from app.config import settings
 from app.users.dao import UsersDAO
@@ -34,3 +35,14 @@ async def get_current_user(token: str = Depends(get_token)):
 
     return user
 
+async def get_async_session() -> AsyncSession:
+
+    async with async_session_maker() as session:
+        try:
+            yield session
+            await session.commit()  # Коммит при успешном выполнении
+        except Exception as e:
+            await session.rollback()  # Откат при ошибке
+            raise e
+        finally:
+            await session.close()  # Всегда закрываем сессию
