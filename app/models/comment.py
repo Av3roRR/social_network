@@ -2,7 +2,7 @@ from select import select
 
 from app.database import Base
 from sqlalchemy.orm import mapped_column, Mapped, relationship, column_property
-from sqlalchemy import Text, ForeignKey, func, select, where
+from sqlalchemy import Text, ForeignKey, func, select
 from datetime import datetime
 from app.models.like import Like
 
