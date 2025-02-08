@@ -1,9 +1,7 @@
 from sqlalchemy import select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
-from app.models.post import Post
-from app.models.comment import Comment
-from app.models.follow import Follow
+from app.models import *
 from app.posts.schemas import PostCreate
 
 async def create_post(db: AsyncSession, post_data: PostCreate, user_id: int):

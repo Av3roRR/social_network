@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.post import Post
-from app.models.user import User
+from app.models import *
 from app.posts.schemas import PostCreate, PostUpdate, PostResponse
 from app.posts.crud import (
     create_post,

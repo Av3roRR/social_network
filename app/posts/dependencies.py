@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.posts.crud import get_post
 from app.users.dependencies import get_async_session
-from app.models.post import Post
+from app.models import *
 async def get_current_post(
     post_id: int,
     db: AsyncSession = Depends(get_async_session)
