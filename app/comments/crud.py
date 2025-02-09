@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, delete
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.comment import Comment
@@ -34,3 +34,7 @@ async def get_comments_for_post(db:AsyncSession, post_id: int, skip: int = 0, li
         .limit(limit)
     )
     return result.scalars().all()
+
+async def delete_comment(db:AsyncSession, comment_id):
+    await db.execute(delete(Comment).where(Comment.id == comment_id))
+    await db.commit()
