@@ -22,7 +22,8 @@ async def get_comment(db:AsyncSession, comment_id: int):
         .options(selectinload(Comment.author))
         .where(Comment.id == comment_id)
                              )
-    return result
+    return result.scalar_one_or_none()
+
 
 async def get_comments_for_post(db:AsyncSession, post_id: int, skip: int = 0, limit: int = 100):
     result = await db.execute(
