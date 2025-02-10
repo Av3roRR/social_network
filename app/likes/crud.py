@@ -1,9 +1,9 @@
 
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, selectinload, delete
+from sqlalchemy import select,  delete
 from app.models.like import Like
-
+from sqlalchemy.orm import selectinload
 
 async def create_like(db: AsyncSession, user_id: int, post_id: int|None = None, comment_id: int|None = None):
     existing_like = await db.execute(
