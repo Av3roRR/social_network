@@ -16,6 +16,6 @@ class User(Base):
     is_active: Mapped[bool] = mapped_column(default=True)
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
 
-    posts = relationship("app.models.post.Post", back_populates="author", lazy="selectin")
-    likes = relationship("app.models.like.Like", back_populates="user", lazy="selectin")
-    comments = relationship("app.models.comment.Comment", back_populates="author", lazy="selectin")  # Добавил
+    posts = relationship("Post", back_populates="author", lazy="selectin")
+    likes = relationship("Like", back_populates="user", lazy="selectin")
+    comments = relationship("Comment", back_populates="author", lazy="selectin")

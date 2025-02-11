@@ -29,7 +29,6 @@ async def create_like(db: AsyncSession, user_id: int, post_id: int|None = None, 
 async def get_like(db: AsyncSession, like_id: int):
     result = await db.execute(
         select(Like)
-        .options(selectinload(Like.user_id))
         .where(Like.id == like_id)
     )
     return result.scalar_one_or_none()

@@ -17,4 +17,4 @@ async def like_comment(comment_id: int, db: AsyncSession = Depends(get_async_ses
 
 @router.delete("/{like_id}")
 async def remove_like(like_id: int, db:AsyncSession = Depends(get_async_session), current_user: User = Depends(get_current_user)):
-    return delete_like(db,like_id,current_user.id)
+    return await delete_like(db,like_id,current_user.id)
