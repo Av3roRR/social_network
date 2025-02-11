@@ -19,3 +19,17 @@ class User(Base):
     posts = relationship("Post", back_populates="author", lazy="selectin")
     likes = relationship("Like", back_populates="user", lazy="selectin")
     comments = relationship("Comment", back_populates="author", lazy="selectin")
+    followers = relationship(
+        "Follow",
+        foreign_keys="Follow.followed_id",
+        back_populates="followed",
+        lazy="selectin",
+        cascade="all, delete-orphan"
+    )
+    following = relationship(
+        "Follow",
+        foreign_keys="Follow.follower_id",
+        back_populates="follower",
+        lazy="selectin",
+        cascade="all, delete-orphan"
+    )
