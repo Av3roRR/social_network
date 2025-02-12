@@ -1,7 +1,8 @@
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from app.models.follow import Follow
+from sqlalchemy.orm import selectinload
 
 async def create_follow(db: AsyncSession,
                         follower_id: int,
@@ -21,7 +22,7 @@ async def create_follow(db: AsyncSession,
     await db.commit()
     return new_follow
 
-async def unfollow(db: AsyncSession,
+async def delete_follow(db: AsyncSession,
                    follower_id: int,
                    followed_id: int):
     follow = await db.execute(
@@ -31,4 +32,25 @@ async def unfollow(db: AsyncSession,
                )
     )
     follow = follow.scalar_one_or_none()
-    #я спать, надо дописать
+    if not follow:
+        raise HTTPException(status.HTTP_404_NOT_FOUND,detail="подписка не обнаружена")
+    await db.delete(follow)
+    await db.commit()
+    return {"message":"вы отписались"}
+
+async def get_followers(db: AsyncSession, users_id: int):
+    result = await db.execute(
+        select(Follow)
+        .where(Follow.followed_id==users_id)
+        .options(selectinload(Follow.follower))
+    )
+    return result.scalars().all()
+
+async def get_following(db: AsyncSession,
+                        user_id: int):
+    result = await db.execute(
+        select(Follow)
+        .where(Follow.follower_id==user_id)
+        .options(selectinload(Follow.followed))
+    )
+    return result.scalars().all()
