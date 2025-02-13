@@ -27,3 +27,7 @@ UserIsNotPresentException = HTTPException(
     detail="Пользователь не найден"
 )
 
+AlreadyFollowingException = HTTPException(
+    status_code=status.HTTP_409_CONFLICT,
+    detail="Вы уже подписаны на этого пользователя"
+)

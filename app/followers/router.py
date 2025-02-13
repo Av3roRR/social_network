@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
 from app.users.dependencies import get_current_user
-from app.exceptions import UserIsNotPresentException
+from app.exceptions import UserIsNotPresentException, AlreadyFollowingException
 from app.followers.dao import FollowersDao
 
 router = APIRouter(
@@ -22,7 +22,13 @@ async def add_follow(followed_id: int, user = Depends(get_current_user)):
     if not user:
         raise UserIsNotPresentException
     
+    follows = await FollowersDao.find_one_or_none(follower_id=int(user.id), followed_id=int(followed_id))
+    
+    if follows:
+        raise AlreadyFollowingException
+    
     await FollowersDao.add(follower_id=int(user.id), followed_id=int(followed_id))
+    
     return "Подписка оформлена"
 
 @router.post("")

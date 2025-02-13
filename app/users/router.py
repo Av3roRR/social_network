@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Response, Request
 from pydantic import EmailStr
 
-from app.users.schemas import RegistrationModel, UserResponse, UserCreateResponse
+from app.users.schemas import RegistrationModel, UserResponse, UserCreateResponse, UserAuthResponse
 from app.users.dao import UsersDAO
 from app.exceptions import UserAlreadyExist
 from app.users.auth import get_password_hash, create_access_token, auth_user
@@ -29,8 +29,8 @@ async def registration(user_data: RegistrationModel):
     
 
 @router.post("/auth")
-async def login(response: Response, email: EmailStr, password: str):
-    user = await auth_user(email=email, password=password)
+async def login(response: Response, auth_model: UserAuthResponse):
+    user = await auth_user(email=auth_model.email, password=auth_model.password)
     if user:
         cookie = create_access_token({"sub": str(user.id)})
         
