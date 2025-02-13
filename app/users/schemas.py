@@ -11,3 +11,7 @@ class UserResponse(BaseModel):
 class UserCreateResponse(BaseModel):
     msg: str
     user: UserResponse
+    
+class UserAuthResponse(BaseModel):
+    email: EmailStr
+    password: str

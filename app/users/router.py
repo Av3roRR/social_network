@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, Request
 from pydantic import EmailStr
 
 from app.users.schemas import RegistrationModel, UserResponse, UserCreateResponse
@@ -31,6 +31,13 @@ async def registration(user_data: RegistrationModel):
 @router.post("/auth")
 async def login(response: Response, email: EmailStr, password: str):
     user = await auth_user(email=email, password=password)
-    cookie = create_access_token({"sub": str(user.id)})
-    
-    response.set_cookie("_user_cookie", cookie, httponly=True)
+    if user:
+        cookie = create_access_token({"sub": str(user.id)})
+        
+        response.set_cookie("_user_cookie", cookie, httponly=True)
+        return "Вы вошли в свою учетную запись"
+    return "Вы не смогли войти в аккаунт"
+
+@router.get("")
+async def quit_account(response: Response):
+    response.delete_cookie("access_token")

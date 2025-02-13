@@ -18,11 +18,11 @@ async def get_follows(user = Depends(get_current_user)):
     return user_follows
 
 @router.post("")
-async def add_follow(followed_id,user = Depends(get_current_user)):
+async def add_follow(followed_id: int, user = Depends(get_current_user)):
     if not user:
         raise UserIsNotPresentException
     
-    await FollowersDao.add(follower_id=user.id, followed_id=followed_id)
+    await FollowersDao.add(follower_id=int(user.id), followed_id=followed_id)
     return "Подписка оформлена"
 
 @router.post("")
