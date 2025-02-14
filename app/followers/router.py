@@ -5,7 +5,8 @@ from app.exceptions import UserIsNotPresentException, AlreadyFollowingException
 from app.followers.dao import FollowersDao
 
 router = APIRouter(
-    prefix="/follows"
+    prefix="/follows",
+    tags=["follows"]
 )
 
 @router.get("")
