@@ -11,7 +11,7 @@ router = APIRouter(prefix="/likes", tags=["likes"])
 async def like_post(post_id: int, db:AsyncSession = Depends(get_async_session), current_user: User = Depends(get_current_user)):
     return await create_like(db=db,user_id=current_user.id,post_id=post_id)
 
-@router.post("/likes/{like_id}", response_model=LikeResponse)
+@router.post("/comment/{comment_id}", response_model=LikeResponse)
 async def like_comment(comment_id: int, db: AsyncSession = Depends(get_async_session), current_user: User = Depends(get_current_user)):
     return await create_like(db=db,user_id=current_user.id,comment_id=comment_id)
 
