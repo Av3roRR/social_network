@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from app.users.dependencies import get_current_user
 from app.exceptions import UserIsNotPresentException, AlreadyFollowingException
 from app.followers.dao import FollowersDao
-
+from app.models import User
 router = APIRouter(
     prefix="/follows",
     tags=["follows"]
@@ -19,7 +19,7 @@ async def get_follows(user = Depends(get_current_user)):
     return user_follows
 
 @router.post("")
-async def add_follow(followed_id: int, user = Depends(get_current_user)):
+async def add_follow(followed_id: int, user: User = Depends(get_current_user)):
     if not user:
         raise UserIsNotPresentException
     
