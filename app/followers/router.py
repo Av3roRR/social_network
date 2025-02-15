@@ -34,4 +34,4 @@ async def add_follow(followed_id: int, user: User = Depends(get_current_user)):
 
 @router.post("")
 async def delete_follow(followed_id, user = Depends(get_current_user)):
-    await FollowersDao.delete(user.id, followed_id)
+    await FollowersDao.delete_follow(user.id, followed_id)

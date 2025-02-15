@@ -33,3 +33,9 @@ AlreadyFollowingException = HTTPException(
     status_code=status.HTTP_409_CONFLICT,
     detail="Вы уже подписаны на этого пользователя"
 )
+AlreadyLikeExist = HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Лайк уже стоит")
+
+PostIsNotPresentException = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Пост не найден")
+
+LikeIsNotPresentException = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="лайк не найден")
+CommentIsNotPresentException = HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="комментарий не найден")
