@@ -4,6 +4,9 @@ from app.posts.router import router as posts_router
 from app.comments.router import router as comment_router
 from app.likes.router import router as likes_router
 from app.followers.router import router as followers_router
+from contextlib import asynccontextmanager
+
+
 app = FastAPI()
 
 
