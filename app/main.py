@@ -6,9 +6,17 @@ from app.likes.router import router as likes_router
 from app.followers.router import router as followers_router
 from contextlib import asynccontextmanager
 from fastapi_cache import FastAPICache
-
-app = FastAPI()
-
+from fastapi_cache.backends.redis import RedisBackend
+from redis import asyncio as aioredis
+from collections.abc import AsyncIterator
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    redis = aioredis.from_url("redis://localhost")
+    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
+    print("-------начало---------")
+    yield
+    print("-------конец---------")
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(users_router)
 app.include_router(posts_router)
