@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, Request
 from pydantic import EmailStr
-
+from app.tasks.tasks import send_welcome_email
 from app.users.schemas import RegistrationModel, UserResponse, UserCreateResponse, UserAuthResponse
 from app.users.dao import UsersDAO
 from app.exceptions import UserAlreadyExist, UsernameAlreadyExist
@@ -25,6 +25,7 @@ async def registration(user_data: RegistrationModel):
                                   email=user_data.email,
                                   hashed_password=get_password_hash(user_data.password))
     if new_user:
+        send_welcome_email.delay(to=user_data.email, username=user_data.username)
         return {"msg":"Пользователь создан", "user":new_user}
     else:
         return "Не создан"

@@ -5,7 +5,6 @@ from app.exceptions import UserIsNotPresentException, AlreadyFollowingException
 from app.followers.dao import FollowersDao
 from app.models import User
 from fastapi_cache.decorator import cache
-from asyncio import sleep
 router = APIRouter(
     prefix="/follows",
     tags=["follows"]
@@ -18,7 +17,7 @@ async def get_follows(user = Depends(get_current_user)):
         raise UserIsNotPresentException
     
     user_follows = await FollowersDao.find_all(follower_id=user.id)
-    await sleep(5)
+    #await sleep(5)
     return user_follows
 
 @router.post("")

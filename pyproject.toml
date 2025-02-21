@@ -15,4 +15,9 @@ dependencies = [
     "pydantic-settings==2.7.1",
     "python-jose>=3.4.0",
     "greenlet>=3.1.1",
+    "celery>=5.4.0",
+    "pillow>=11.1.0",
+    "flower>=2.0.1",
+    "python-multipart>=0.0.20",
+    "python-dotenv>=1.0.1",
 ]
