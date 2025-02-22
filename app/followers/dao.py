@@ -8,7 +8,7 @@ class FollowersDao(BaseDAO):
     model=Follow
     
     @classmethod
-    async def delete(cls, user_id: int, followed_id: int):
+    async def delete_follow(cls, user_id: int, followed_id: int):
         async with async_session_maker() as session:
             query = delete(cls.model).where(cls.model.follower_id == user_id, cls.model.followed_id == followed_id)
             if query is not None:
