@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, Request
 from pydantic import EmailStr
-from app.tasks.tasks import send_welcome_email
+from app.tasks.tasks import send_welcome_email, send_login_email
 from app.users.schemas import RegistrationModel, UserResponse, UserCreateResponse, UserAuthResponse
 from app.users.dao import UsersDAO
 from app.exceptions import UserAlreadyExist, UsernameAlreadyExist
@@ -38,6 +38,7 @@ async def login(response: Response, auth_model: UserAuthResponse):
         cookie = create_access_token({"sub": str(user.id)})
         
         response.set_cookie("_user_cookie", cookie, httponly=True)
+        send_login_email.delay(auth_model.email,user.username)
         return "Вы вошли в свою учетную запись"
     return "Вы не смогли войти в аккаунт"
 
