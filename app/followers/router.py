@@ -24,7 +24,7 @@ async def add_follow(followed_id: int, user = Depends(get_current_user)):
     
     follows = await FollowersDao.find_one_or_none(follower_id=int(user.id), followed_id=int(followed_id))
     
-    if follows:
+    if not follows:
         raise AlreadyFollowingException
     
     await FollowersDao.add(follower_id=int(user.id), followed_id=int(followed_id))
