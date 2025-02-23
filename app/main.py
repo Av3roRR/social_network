@@ -9,6 +9,9 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 from collections.abc import AsyncIterator
+from sqladmin import Admin
+from app.admin.view import UserAdmin
+from app.database import async_engine as engine
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     redis = aioredis.from_url("redis://localhost")
@@ -17,6 +20,14 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     yield
     print("-------конец---------")
 app = FastAPI(lifespan=lifespan)
+
+
+
+admin = Admin(app, engine)
+admin.add_view(UserAdmin)
+
+
+
 
 app.include_router(users_router)
 app.include_router(posts_router)

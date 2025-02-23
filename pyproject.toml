@@ -20,4 +20,5 @@ dependencies = [
     "flower>=2.0.1",
     "python-multipart>=0.0.20",
     "python-dotenv>=1.0.1",
+    "sqladmin>=0.20.1",
 ]
