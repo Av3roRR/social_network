@@ -13,3 +13,6 @@ class Follow(Base):
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
     follower = relationship("User", foreign_keys=[follower_id], back_populates="following")
     followed = relationship("User", foreign_keys=[followed_id], back_populates="followers")
+    
+    def __str__(self):
+        return f"Подписка: {self.follower_id} → {self.followed_id}"

@@ -33,3 +33,5 @@ class User(Base):
         lazy="selectin",
         cascade="all, delete-orphan"
     )
+    def __str__(self):
+        return f'Пользователь {self.email}'

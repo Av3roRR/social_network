@@ -35,3 +35,6 @@ class Post(Base):
     comments_count = column_property(
         select(func.count(Comment.id)).where(Comment.post_id == id).scalar_subquery()
     )
+
+    def __str__(self):
+        return f"Пост №{self.id}"

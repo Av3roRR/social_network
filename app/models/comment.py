@@ -23,3 +23,5 @@ class Comment(Base):
     likes_count = column_property(
         select(func.count(Like.id)).where(Like.comment_id == id).scalar_subquery()
     )
+    def __str__(self):
+        return f'Комментарий #{self.id}'

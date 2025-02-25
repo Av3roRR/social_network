@@ -17,3 +17,8 @@ class Like(Base):
     user = relationship("User", back_populates="likes")  # Добавлено
     post = relationship("Post", back_populates="likes")
     comment = relationship("Comment", back_populates="likes")
+
+    def __str__(self):
+        if self.post_id:
+            return f'Лайк к посту №{self.post_id}'
+        return f"Лайк к комментарию №{self.comment_id}"
