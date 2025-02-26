@@ -12,6 +12,7 @@ from collections.abc import AsyncIterator
 from sqladmin import Admin
 from app.admin.view import UserAdmin, PostAdmin, LikeAdmin, FollowAdmin, CommentAdmin
 from app.database import async_engine as engine
+from app.admin.auth import authentication_backend
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     redis = aioredis.from_url("redis://localhost")
@@ -23,7 +24,8 @@ app = FastAPI(lifespan=lifespan)
 
 
 
-admin = Admin(app, engine)
+admin = Admin(app, engine,authentication_backend=authentication_backend)
+
 admin.add_view(UserAdmin)
 admin.add_view(PostAdmin)
 admin.add_view(LikeAdmin)
