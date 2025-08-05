@@ -26,6 +26,8 @@ def send_welcome_email(to: str, username: str):
         """
         msg.attach(MIMEText(body, 'html'))
 
+        
+
         with smtplib.SMTP_SSL(smtp_server, smtp_port) as server:
             server.login(smtp_username, smtp_password)
             server.send_message(msg)
