@@ -20,6 +20,7 @@ async def get_follows(user = Depends(get_current_user)):
     #await sleep(5)
     return user_follows
 
+
 @router.post("")
 async def add_follow(followed_id: int, user: User = Depends(get_current_user)):
     if not user:

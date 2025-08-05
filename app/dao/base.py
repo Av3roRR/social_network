@@ -2,10 +2,10 @@ from sqlalchemy import insert, delete, select, update
 
 from app.database import async_session_maker
 
-
 class BaseDAO:
     model = None
 
+    
     @classmethod
     async def find_by_id(cls, model_id: int):
         async with async_session_maker() as session:

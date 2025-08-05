@@ -6,7 +6,7 @@ from app.users.schemas import UserResponse
 class PostBase(BaseModel):
     content: str = Field(..., min_length=1, max_length=2000)
     media_url: str|None
-
+    
 class PostCreate(PostBase):
     pass
 
